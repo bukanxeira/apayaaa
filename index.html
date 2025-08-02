@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khusus Radisty</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffe0f0, #ffccff);
+      color: #4d004d;
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      overflow-x: hidden;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-top: 60px;
+      font-size: 2.5rem;
+      animation: rainbow 4s linear infinite, blink 2s infinite, spinRainbow 6s linear infinite;
+      text-shadow: 0 0 10px #ffb3ec;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #800040;
+      margin: 20px auto 40px;
+      max-width: 600px;
+    }
+
+    .btns, .gift-btn {
+      margin-bottom: 20px;
+    }
+
+    .btns {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    button {
+      padding: 14px 28px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      max-width: 100%;
+    }
+
+    .yes-btn {
+      background: #ff99c8;
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 153, 200, 0.5);
+    }
+
+    .no-btn {
+      background: #ccc;
+      color: #333;
+      position: relative;
+    }
+
+    .no-btn.moving {
+      transition: transform 0.4s ease;
+    }
+
+    .gift-btn {
+      background: #ffd6ec;
+      color: #800040;
+      display: none;
+    }
+
+    .popup {
+      display: none;
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      margin: 30px auto;
+      box-shadow: 0 0 20px rgba(255, 153, 200, 0.6);
+      position: relative;
+      z-index: 10;
+    }
+
+    .popup img {
+      width: 100px;
+    }
+
+    .flower, .balloon, .boba, .uwu-heart, .sparkle, .hug, .rainbow-spin, .teddy, .star, .confetti {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: 1;
+      animation: fall linear forwards;
+    }
+
+    .hug {
+      background-image: url('https://media.tenor.com/OPm6TQrz5q0AAAAi/hug.gif');
+      width: 80px;
+      height: 80px;
+    }
+
+    .rainbow-spin {
+      background-image: url('https://media.tenor.com/SfchcXOVLUEAAAAi/rainbow-rainbow-circle.gif');
+      width: 60px;
+      height: 60px;
+    }
+
+    .sparkle {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3463/3463309.png');
+    }
+
+    .teddy {
+      background-image: url('https://media.tenor.com/z5F0IQX1JZ4AAAAi/bear-bye.gif');
+    }
+
+    .star {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/616/616490.png');
+    }
+
+    .confetti {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/2917/2917995.png');
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes rainbow {
+      0% { color: #ff6ec7; }
+      25% { color: #ffa3e0; }
+      50% { color: #ffe6f7; }
+      75% { color: #ff9cf5; }
+      100% { color: #ff6ec7; }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    @keyframes spinRainbow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      p { font-size: 1rem; }
+      button { font-size: 0.9rem; padding: 12px 20px; }
+      .popup img { width: 80px; }
+      .btns { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Permintaan Maaf Khusus Radisty</h1>
+  <p>maaf ya jangan kesel lagi HAHAHA</p>
+  <div class="btns">
+    <button class="yes-btn" onclick="showLove()">iya dimaafin</button>
+    <button class="no-btn" id="noBtn">gamau😝</button>
+  </div>
+  <button class="gift-btn" onclick="showPopup()">🎁 klik untuk hadiah</button>
+
+  <div class="popup" id="popup">
+    <img src="https://media.tenor.com/tnxLG5E9jJ4AAAAi/bubu-dudu-love.gif" alt="Love">
+    <p>maaf ya radisty<br/>#bercandadoangjangandimasukinkehatipls</p>
+  </div>
+
+  <script>
+    const audio = new Audio("https://dl.sndup.net/fz6c/bucin.mp3");
+    const noBtn = document.getElementById("noBtn");
+
+    function showLove() {
+      createRain('flower', 'https://png.pngtree.com/png-clipart/20220602/original/pngtree-cute-cartoon-flower-daisy-lovely-flower-illustration-png-image_7905127.png');
+      createRain('balloon', 'https://png.pngtree.com/png-clipart/20201223/ourmid/pngtree-cute-balloon-floating-png-image_2615851.jpg');
+      createRain('boba', 'https://png.pngtree.com/png-clipart/20230416/original/pngtree-boba-milk-tea-drink-cartoon-cute-vector-png-image_9054713.png');
+      createRain('uwu-heart', 'https://cdn-icons-png.flaticon.com/512/833/833472.png');
+      createRain('hug', null);
+      createRain('rainbow-spin', null);
+      createRain('teddy', null);
+      createRain('star', null);
+      createRain('confetti', null);
+      document.querySelector('.gift-btn').style.display = 'inline-block';
+      audio.play();
+    }
+
+    function createRain(type, imgUrl) {
+      for (let i = 0; i < 30; i++) {
+        const el = document.createElement('div');
+        el.className = type;
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.top = '-10vh';
+        if (imgUrl) el.style.backgroundImage = `url('${imgUrl}')`;
+        el.style.animationDuration = (Math.random() * 4 + 3) + 's';
+        el.style.opacity = Math.random();
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 10000);
+      }
+    }
+
+    function showPopup() {
+      document.getElementById('popup').style.display = 'block';
+      for (let i = 0; i < 20; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'sparkle';
+        spark.style.left = Math.random() * 100 + 'vw';
+        spark.style.top = Math.random() * 100 + 'vh';
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 2000);
+      }
+    }
+
+    noBtn.addEventListener("mouseover", () => {
+      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      noBtn.classList.add("moving");
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      noBtn.style.position = 'absolute';
+    });
+  </script>
+</body>
+</html>
